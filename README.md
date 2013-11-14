@@ -8,30 +8,31 @@ Currently, only CentOS is supported, but provider is already ready to add Debian
 How to (easily) use it
 ======================
 
-<code>
-export COOKBOOK_NAME=cookbook-gecoscc-chef-server
+This snippet will download cookbook tarball and run a 'chef-solo' using the cookbook.
 
-cat > /tmp/solo.rb << EOF
-root = File.absolute_path(File.dirname(__FILE__))
+You can also check our [from-the-scratch approach](https://github.com/gecos-team/gecoscc-chef-server-repo/blob/master/scripts/gecoscc-chef-server-install.sh) (installs rvm -> installs chef gem -> run chef-solo with this cookbook -> uninstall rvm/chef-gem).
 
-file_cache_path root
-cookbook_path root + '/cookbooks'
-EOF
+<pre><code>
+export COOKBOOK_NAME='cookbook-gecoscc-chef-server'
 
-cat > /tmp/solo.json << EOF
-{
-    "run_list": [ "recipe[${COOKBOOK_NAME}::default]" ]
-}
-EOF
+# echo method is used instead of cat+heredoc because MarkDown wont render from &lt&lt
+echo "root = File.absolute_path(File.dirname(__FILE__))" > /tmp/solo.rb
+echo "" >> /tmp/solo.rb
+echo "file_cache_path root" >> /tmp/solo.rb
+echo "cookbook_path root + '/cookbooks'" >> /tmp/solo.rb
+
+echo "{" > /tmp/solo.json
+echo "    \"run_list\": [ \"recipe[${COOKBOOK_NAME}::default]\" ]" >> /tmp/solo.json
+echo "}" >> /tmp/solo.json
 
 mkdir /tmp/cookbooks
 wget -O /tmp/${COOKBOOK_NAME}.tar.gz https://api.github.com/repos/gecos-team/${COOKBOOK_NAME}/tarball 
 tar -C /tmp/cookbooks -zxf /tmp/${COOKBOOK_NAME}.tar.gz
 mv /tmp/cookbooks/*${COOKBOOK_NAME}* /tmp/cookbooks/${COOKBOOK_NAME}
 chef-solo -c /tmp/solo.rb -j /tmp/solo.json
-</code>
+</code></pre>
 
-You can also check our [from-the-scratch approach](https://github.com/gecos-team/gecoscc-chef-server-repo/blob/master/scripts/gecoscc-chef-server-install.sh) (installs rvm -> installs chef gem -> run chef-solo with this cookbook -> uninstall rvm/chef-gem).
+
 
 Contributing
 ============
