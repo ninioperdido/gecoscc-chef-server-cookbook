@@ -12,7 +12,7 @@ How to (easily) use it
 chef-solo -r https://github.com/gecos-team/cookbook-gecoscc-chef-server/archive/master.zip
 </code>
 
-You can also check our [from-the-scratch approach](https://github.com/gecos-team/gecoscc-chef-server-repo/blob/master/scripts/gecoscc-chef-server-install.sh) (installs rvm -> installs chef gem -> run chef-solo with this cookbook).
+You can also check our [from-the-scratch approach](https://github.com/gecos-team/gecoscc-chef-server-repo/blob/master/scripts/gecoscc-chef-server-install.sh) (installs rvm -> installs chef gem -> run chef-solo with this cookbook -> uninstall rvm/chef-gem).
 
 Contributing
 ============
