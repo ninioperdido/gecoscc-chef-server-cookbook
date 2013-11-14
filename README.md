@@ -9,7 +9,26 @@ How to (easily) use it
 ======================
 
 <code>
-chef-solo -r https://github.com/gecos-team/cookbook-gecoscc-chef-server/archive/master.zip
+export COOKBOOK_NAME=cookbook-gecoscc-chef-server
+
+cat > /tmp/solo.rb << EOF
+root = File.absolute_path(File.dirname(__FILE__))
+
+file_cache_path root
+cookbook_path root + '/cookbooks'
+EOF
+
+cat > /tmp/solo.json << EOF
+{
+    "run_list": [ "recipe[${COOKBOOK_NAME}::default]" ]
+}
+EOF
+
+mkdir /tmp/cookbooks
+wget -O /tmp/${COOKBOOK_NAME}.tar.gz https://api.github.com/repos/gecos-team/${COOKBOOK_NAME}/tarball 
+tar -C /tmp/cookbooks -zxf /tmp/${COOKBOOK_NAME}.tar.gz
+mv /tmp/cookbooks/*${COOKBOOK_NAME}* /tmp/cookbooks/${COOKBOOK_NAME}
+chef-solo -c /tmp/solo.rb -j /tmp/solo.json
 </code>
 
 You can also check our [from-the-scratch approach](https://github.com/gecos-team/gecoscc-chef-server-repo/blob/master/scripts/gecoscc-chef-server-install.sh) (installs rvm -> installs chef gem -> run chef-solo with this cookbook -> uninstall rvm/chef-gem).
