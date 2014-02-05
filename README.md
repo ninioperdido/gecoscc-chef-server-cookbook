@@ -13,7 +13,7 @@ This snippet will download cookbook tarball and run a 'chef-solo' using the cook
 You can also check our [from-the-scratch approach](https://github.com/gecos-team/gecoscc-chef-server-repo/blob/master/scripts/gecoscc-chef-server-install.sh) (installs rvm -> installs chef gem -> run chef-solo with this cookbook -> uninstall rvm/chef-gem).
 
 <pre><code>
-export COOKBOOK_NAME='cookbook-gecoscc-chef-server'
+export COOKBOOK_NAME='gecoscc-chef-server-cookbook'
 
 # echo method is used instead of cat+heredoc because MarkDown wont render from &lt&lt
 echo "root = File.absolute_path(File.dirname(__FILE__))" > /tmp/solo.rb
