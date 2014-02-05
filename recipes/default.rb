@@ -9,6 +9,6 @@
 # http://www.osor.eu/eupl
 #
 
-cookbook_gecoscc_chef_server_chef_server "chef_server" do
+gecoscc_chef_server_cookbook_chef_server "chef_server" do
   action :install
 end
