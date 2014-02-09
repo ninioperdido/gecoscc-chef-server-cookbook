@@ -12,6 +12,7 @@
 action :install do
 
   arch = node["languages"]["ruby"]["target_cpu"]
+  chef_server_version = node["gecoscc-chef-server"]["chef-server-version"]
 
   case node["platform_family"]
     when "debian"
@@ -20,7 +21,7 @@ action :install do
       # do things on RHEL platforms (redhat, centos, scientific, etc) 
       local_rpm_file = "#{Chef::Config[:file_cache_path]}/chef-server.rpm"
       remote_file local_rpm_file do
-        source "https://opscode-omnibus-packages.s3.amazonaws.com/el/6/#{arch}/chef-server-11.0.10-1.el6.#{arch}.rpm"
+        source "https://opscode-omnibus-packages.s3.amazonaws.com/el/6/#{arch}/chef-server-#{chef_server_version}-1.el6.#{arch}.rpm"
         action :create
       end
       rpm_package "chef-server" do
