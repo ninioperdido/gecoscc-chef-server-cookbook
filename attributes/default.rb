@@ -8,4 +8,4 @@
 # http://www.osor.eu/eupl
 #
 
-efault['gecoscc-chef-server']['chef-server-version'] = '11.0.10'
+default['gecoscc-chef-server']['chef-server-version'] = '11.0.10'
