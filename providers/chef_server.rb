@@ -18,7 +18,7 @@ action :install do
     when "debian"
       # do things on debian-ish platforms (debian, ubuntu, linuxmint)
     when "rhel"
-      # do things on RHEL platforms (redhat, centos, scientific, etc) 
+      # do things on RHEL platforms (redhat, centos, scientific, etc)
       local_rpm_file = "#{Chef::Config[:file_cache_path]}/chef-server.rpm"
       remote_file local_rpm_file do
         source "https://opscode-omnibus-packages.s3.amazonaws.com/el/6/#{arch}/chef-server-#{chef_server_version}-1.el6.#{arch}.rpm"
@@ -29,5 +29,24 @@ action :install do
         action :install
       end
   end
-
+  # create the chef-server etc directory
+  directory '/etc/chef-server' do
+    owner 'root'
+    group 'root'
+    recursive true
+    action :create
+  end 
+  # create the initial chef-server config file
+  template '/etc/chef-server/chef-server.rb' do
+    source 'chef-server.rb.erb'
+    owner 'root'
+    group 'root'
+    action :create
+    notifies :run, 'execute[reconfigure-chef-server]', :immediately
+  end
+  # reconfigure the installation
+  execute 'reconfigure-chef-server' do
+    command 'chef-server-ctl reconfigure'
+    action :nothing
+  end
 end
