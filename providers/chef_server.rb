@@ -13,6 +13,7 @@ action :install do
 
   arch = node["languages"]["ruby"]["target_cpu"]
   chef_server_version = node["gecoscc-chef-server"]["chef-server-version"]
+  chef_server_port = node['gecoscc-chef-server']['configuration']['nginx']['ssl_port']
 
   case node["platform_family"]
     when "debian"
@@ -48,5 +49,13 @@ action :install do
   execute 'reconfigure-chef-server' do
     command 'chef-server-ctl reconfigure'
     action :nothing
+  end
+  bash "lokkit" do
+    user "root"
+    cmd "/tmp"
+    code <<-EOH
+      lokkit -p {#chef_server_port}:tcp
+    EOH
+    only_if { firewall_type == 'lokkit' }
   end
 end
