@@ -13,3 +13,4 @@ default['gecoscc-chef-server']['configuration']['nginx']['enable'] = true
 default['gecoscc-chef-server']['configuration']['nginx']['non_ssl_port'] = false
 default['gecoscc-chef-server']['configuration']['nginx']['enable_non_ssl'] = false
 default['gecoscc-chef-server']['configuration']['nginx']['ssl_port'] = 443
+default['gecoscc-chef-server']['configuration']['firewall'] = 'lokkit'
