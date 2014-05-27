@@ -55,7 +55,7 @@ action :install do
     user "root"
     cwd "/tmp"
     code <<-EOH
-      lokkit -p {#chef_server_port}:tcp
+      lokkit -p #{chef_server_port}:tcp
     EOH
     only_if { firewall_type == 'lokkit' }
   end
