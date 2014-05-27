@@ -52,7 +52,7 @@ action :install do
   end
   bash "lokkit" do
     user "root"
-    cmd "/tmp"
+    cwd "/tmp"
     code <<-EOH
       lokkit -p {#chef_server_port}:tcp
     EOH
