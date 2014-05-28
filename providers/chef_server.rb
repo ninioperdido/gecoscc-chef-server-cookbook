@@ -14,7 +14,7 @@ action :install do
   arch = node["languages"]["ruby"]["target_cpu"]
   chef_server_version = node["gecoscc-chef-server"]["chef-server-version"]
   chef_server_port = node['gecoscc-chef-server']['configuration']['nginx']['ssl_port']
-  firewall_type =  node['gecoscc-chef-server']['configuration']['firewall']
+  firewall_type =  node['gecoscc-chef-server']['firewall']
 
   case node["platform_family"]
     when "debian"
