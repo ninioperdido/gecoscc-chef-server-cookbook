@@ -8,7 +8,8 @@
 # http://www.osor.eu/eupl
 #
 require 'socket'
-server_name = Socket::getaddrinfo(Socket.gethostname,"echo",Socket::AF_INET)[0][3]
+
+server_name = UDPSocket.open {|s| s.connect('64.233.187.99', 1); s.addr.last }
 
 default['gecoscc-chef-server']['chef-server-version'] = '11.0.12'
 default['gecoscc-chef-server']['configuration']['nginx']['url'] = "https://#{server_name}"
