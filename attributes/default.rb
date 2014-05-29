@@ -7,8 +7,11 @@
 # All rights reserved - EUPL License V 1.1
 # http://www.osor.eu/eupl
 #
+require 'socket'
+server_name = Socket::getaddrinfo(Socket.gethostname,"echo",Socket::AF_INET)[0][3]
 
 default['gecoscc-chef-server']['chef-server-version'] = '11.0.12'
+default['gecoscc-chef-server']['configuration']['nginx']['url'] = "https://#{server_name}"
 default['gecoscc-chef-server']['configuration']['nginx']['enable'] = true
 default['gecoscc-chef-server']['configuration']['nginx']['non_ssl_port'] = false
 default['gecoscc-chef-server']['configuration']['nginx']['enable_non_ssl'] = false
