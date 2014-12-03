@@ -48,6 +48,7 @@ action :install do
   end
   # reconfigure the installation
   execute 'reconfigure-chef-server' do
+    command 'chmod u+r /etc/chef-server/admin.pem'
     command 'chef-server-ctl reconfigure'
     action :nothing
   end
